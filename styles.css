@@ -549,3 +549,21 @@ footer { background: var(--black); color: var(--white); padding: 120px 0 50px; }
   .contact-grid { grid-template-columns: 1fr; }
   .modal-inner { padding: 40px; }
 }
+/* ===== FIX: FAQ Schrift wirkt auf Handy "blurry" (iPhone/Safari) ===== */
+@media (max-width: 768px) {
+  .faq-trigger {
+    font-size: 16px;      /* etwas größer = schärfer */
+    letter-spacing: 1px;  /* weniger spacing = weniger blur */
+    line-height: 1.35;
+  }
+
+  /* Safari rendert Text bei "max-height + transition" manchmal unscharf */
+  .faq-content {
+    transition: none;
+  }
+}
+
+/* Optional, hilft oft auf iPhone/Safari allgemein */
+body {
+  -webkit-text-size-adjust: 100%;
+}
