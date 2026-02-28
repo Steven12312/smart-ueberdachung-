@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -7,22 +7,280 @@
   <title>Smart Überdachung | Eleganz, die Schatten wirft</title>
   <meta name="description" content="Premium Outdoor-Lösungen: Entdecken Sie die Signature, Essence und Pure Kollektionen von Smart Überdachung. Maßgeschneiderte Architektur für Ihren Garten.">
 
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root{
+      --black:#000;--white:#fff;--gold:#b89352;
+      --gray-100:#f5f5f5;--gray-200:#eee;--gray-400:#999;--gray-800:#1a1a1a;
+      --transition:all .7s cubic-bezier(.16,1,.3,1);
+    }
+    html{scroll-behavior:smooth}
+    *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.6;color:var(--black);background:var(--white);overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
+      padding-top:54px; /* Platz für Dev-Banner */
+    }
+
+    /* ===== DEV BANNER ===== */
+    .dev-banner{
+      position:fixed;top:0;left:0;right:0;z-index:5000;
+      background:rgba(0,0,0,.92);color:#fff;
+      border-bottom:1px solid rgba(184,147,82,.35);
+      backdrop-filter:blur(10px);
+    }
+    .dev-banner .wrap{
+      width:90%;max-width:1700px;margin:0 auto;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      padding:12px 0;
+    }
+    .dev-badge{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:2px;
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
+    .dev-text{font-size:12px;opacity:.9}
+    .dev-close{
+      background:transparent;border:1px solid rgba(255,255,255,.25);
+      color:#fff;border-radius:999px;padding:8px 12px;
+      cursor:pointer;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    }
+    .dev-close:hover{border-color:rgba(255,255,255,.55)}
+
+    /* ===== HEADER ===== */
+    header{
+      position:fixed;width:100%;top:54px; /* unter Banner */
+      z-index:1000;padding:40px 0;transition:var(--transition);
+    }
+    header .logo{
+      font-size:22px;font-weight:900;letter-spacing:4px;text-decoration:none;
+      color:var(--white);text-transform:uppercase;
+    }
+    header .logo span{color:var(--gold)}
+    header .nav-links a{
+      text-decoration:none;color:var(--white);font-size:11px;font-weight:700;
+      text-transform:uppercase;letter-spacing:2px;opacity:.85;transition:.3s;
+    }
+    header .nav-links a:hover{opacity:1}
+    header.scrolled{
+      background:rgba(255,255,255,.98);backdrop-filter:blur(15px);
+      padding:15px 0;border-bottom:1px solid var(--gray-200);
+      box-shadow:0 5px 20px rgba(0,0,0,.05);
+    }
+    header.scrolled .logo{color:var(--black)}
+    header.scrolled .nav-links a{color:var(--black)}
+    .container{width:90%;max-width:1700px;margin:0 auto}
+    nav{display:flex;justify-content:space-between;align-items:center}
+    .nav-links{display:flex;gap:50px;list-style:none}
+
+    /* ===== HERO ===== */
+    .hero{
+      height:100vh;background:var(--black);
+      display:flex;align-items:center;position:relative;color:var(--white);
+      overflow:hidden;
+    }
+    .hero-bg{
+      position:absolute;inset:0;z-index:1;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 25%),
+        linear-gradient(to right, rgba(0,0,0,0.9) 0%, transparent 70%),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><rect width="120" height="120" fill="%23111"/><path d="M0 80 L120 40" stroke="%23222" stroke-width="2"/><path d="M0 40 L120 80" stroke="%23222" stroke-width="2"/></svg>');
+      background-size:cover;background-position:center;
+    }
+    .hero-content{position:relative;z-index:2;width:90%;max-width:1700px;margin:0 auto}
+    .hero-label{
+      text-transform:uppercase;letter-spacing:5px;color:var(--gold);
+      font-size:12px;font-weight:700;display:block;margin-bottom:15px;
+    }
+    .hero h1{
+      font-size:clamp(40px,9vw,110px);line-height:.9;font-weight:900;
+      text-transform:uppercase;letter-spacing:-3px;margin-bottom:25px;
+      animation:fadeInShadow 2s ease-out;
+    }
+    @keyframes fadeInShadow{from{opacity:0;transform:translateY(20px);filter:blur(10px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+    .hero p{font-size:18px;max-width:550px;color:#ccc;margin-bottom:45px;font-weight:300}
+    .hero-actions{display:flex;gap:20px;flex-wrap:wrap}
+
+    /* ===== BUTTONS ===== */
+    .btn{
+      display:inline-block;padding:20px 45px;font-size:12px;font-weight:800;
+      text-transform:uppercase;letter-spacing:2px;text-decoration:none;
+      transition:.3s;cursor:pointer;border:1px solid transparent;
+    }
+    .btn-gold{background:var(--gold);color:var(--white)}
+    .btn-gold:hover{background:#a38142;transform:scale(1.03)}
+    .btn-outline{border:1px solid var(--white);color:var(--white)}
+    .btn-outline:hover{background:var(--white);color:var(--black)}
+    .btn-small{padding:12px 25px;font-size:10px}
+
+    /* ===== SECTIONS ===== */
+    .section{padding:140px 0}
+    .section-title{text-align:center;margin-bottom:100px}
+    .section-title span{
+      font-size:13px;text-transform:uppercase;letter-spacing:6px;color:var(--gold);
+      font-weight:700;display:block;margin-bottom:15px;
+    }
+    .section-title h2{
+      font-size:clamp(30px,4vw,50px);text-transform:uppercase;font-weight:900;letter-spacing:-1px;
+    }
+
+    /* ===== COLLECTIONS GRID ===== */
+    .collection-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:25px}
+    .col-card{
+      position:relative;overflow:hidden;color:var(--white);background:var(--gray-100);
+      display:flex;flex-direction:column;justify-content:flex-end;padding:50px;
+      aspect-ratio:1/1;cursor:pointer;border:none;text-align:left;
+    }
+    .col-card.large{grid-column:span 3;grid-row:span 2;aspect-ratio:auto}
+    .col-card.medium{grid-column:span 2}
+    .col-card::after{
+      content:"";position:absolute;inset:0;z-index:1;
+      background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    }
+    .col-content{position:relative;z-index:2}
+    .col-content h3{font-size:28px;text-transform:uppercase;font-weight:800;margin-bottom:8px}
+    .col-content p{font-size:12px;text-transform:uppercase;letter-spacing:3px;color:var(--gold);font-weight:700}
+
+    /* ===== DETAIL PANEL ===== */
+    .detail-panel{
+      position:fixed;top:0;right:-100%;width:100%;height:100%;
+      background:var(--white);z-index:3000;transition:.8s cubic-bezier(.16,1,.3,1);
+      overflow-y:auto;padding:80px 0;visibility:hidden;
+    }
+    .detail-panel.active{right:0;visibility:visible}
+    .detail-close{
+      position:absolute;top:40px;right:5%;font-size:40px;cursor:pointer;
+      z-index:3001;color:var(--black);line-height:1;background:transparent;border:none;
+    }
+    .detail-header{margin-bottom:60px}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:80px}
+    .detail-img-box{
+      height:500px;background:var(--gray-100);overflow:hidden;display:flex;
+      align-items:center;justify-content:center;color:var(--gray-400);border:1px solid var(--gray-200);
+    }
+    .detail-text h4{text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;font-size:14px;color:var(--gold)}
+    .detail-text p{font-size:18px;color:var(--gray-800);font-weight:300;margin-bottom:30px}
+    .feature-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .feature-list li{
+      font-size:14px;text-transform:uppercase;font-weight:700;display:flex;align-items:center;gap:10px
+    }
+    .feature-list li::before{content:"";width:8px;height:8px;background:var(--gold);display:inline-block}
+
+    /* ===== MISSION ===== */
+    .section-dark{background:var(--black);color:var(--white)}
+    .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .mission-kicker{color:var(--gold);letter-spacing:4px;text-transform:uppercase;font-size:12px;margin-bottom:20px;display:block}
+    .mission-title{font-size:50px;text-transform:uppercase;line-height:1}
+    .mission-text{color:#aaa;font-weight:300;font-size:20px;margin:18px 0 28px}
+    .mission-image{
+      height:600px;background:#222;display:flex;align-items:center;justify-content:center;color:#444;border:1px solid #2a2a2a;
+    }
+
+    /* ===== FAQ ===== */
+    .faq-section{max-width:1100px;margin:0 auto}
+    .faq-item{border-bottom:1px solid var(--gray-200);padding:40px 0}
+    .faq-trigger{
+      width:100%;display:flex;justify-content:space-between;align-items:center;
+      cursor:pointer;font-weight:800;text-transform:uppercase;font-size:15px;letter-spacing:2px;
+      background:transparent;border:none;text-align:left;
+    }
+    .faq-content{
+      max-height:0;overflow:hidden;transition:var(--transition);color:#666;font-size:16px;line-height:1.8;padding-right:40px;
+    }
+    .faq-item.active .faq-content{max-height:500px;margin-top:25px}
+
+    /* ===== CONTACT ===== */
+    .section-light{background:var(--gray-100)}
+    .contact-container{max-width:900px}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+    input, textarea{
+      width:100%;padding:22px;border:1px solid #ddd;outline:none;background:var(--white);font:inherit;
+    }
+    textarea{margin-top:25px;resize:vertical}
+    .btn-full{width:100%;border:none}
+    .form-note{margin-top:14px;font-size:13px;color:#777}
+
+    /* ===== FOOTER ===== */
+    footer{background:var(--black);color:var(--white);padding:120px 0 50px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:80px}
+    .footer-logo{
+      font-size:24px;font-weight:900;letter-spacing:4px;color:var(--white);
+      text-decoration:none;text-transform:uppercase;margin-bottom:25px;display:block;
+    }
+    .footer-col h4{
+      font-size:12px;text-transform:uppercase;letter-spacing:3px;color:var(--gold);
+      margin-bottom:30px;font-weight:800;
+    }
+    .footer-col ul{list-style:none}
+    .footer-col li{margin-bottom:18px}
+    .footer-col a{color:#777;text-decoration:none;font-size:14px;transition:.3s}
+    .footer-col a:hover{color:var(--white)}
+    .legal-bar{
+      border-top:1px solid #1a1a1a;padding-top:40px;display:flex;justify-content:space-between;
+      font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#444;gap:20px;flex-wrap:wrap;
+    }
+    .footer-text{color:#555}
+
+    /* ===== MODAL ===== */
+    .modal{
+      position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:4000;
+      display:none;align-items:center;justify-content:center;padding:30px;
+    }
+    .modal-inner{
+      background:var(--white);max-width:1000px;width:100%;padding:80px;position:relative;
+      max-height:90vh;overflow-y:auto;
+    }
+    .modal-close{
+      position:absolute;top:30px;right:30px;font-size:40px;cursor:pointer;color:var(--black);
+      background:transparent;border:none;
+    }
+
+    /* ===== MOBILE BLUR FIX (FAQ) ===== */
+    @media (max-width: 768px) {
+      .faq-trigger{font-size:16px;letter-spacing:1px;line-height:1.35}
+      .faq-content{transition:none}
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px){
+      .collection-grid{grid-template-columns:repeat(2,1fr)}
+      .col-card.large,.col-card.medium{grid-column:span 1;grid-row:span 1;aspect-ratio:1/1}
+      .detail-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .mission-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 768px){
+      .collection-grid{grid-template-columns:1fr}
+      .nav-links{display:none}
+      .footer-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .modal-inner{padding:40px}
+    }
+  </style>
 </head>
+
 <body>
+  <!-- DEV BANNER -->
+  <div class="dev-banner" id="devBanner">
+    <div class="wrap">
+      <div>
+        <div class="dev-badge"><span class="dot"></span>Website ist in Entwicklung</div>
+        <div class="dev-text">Demo-/Vorführversion. Inhalte, Bilder und Rechtstexte sind Platzhalter und werden vor Live-Schaltung finalisiert.</div>
+      </div>
+      <button class="dev-close" type="button" onclick="closeDevBanner()">Ausblenden</button>
+    </div>
+  </div>
 
   <header id="header">
     <div class="container">
       <nav>
         <a href="#home" class="logo">Smart <span>Überdachung</span></a>
-
         <ul class="nav-links">
           <li><a href="#kollektionen">Kollektionen</a></li>
           <li><a href="#vorteile">Mission</a></li>
           <li><a href="#faq">Expertise</a></li>
           <li><a href="#kontakt">Anfrage</a></li>
         </ul>
-
         <a href="#kontakt" class="btn btn-gold btn-small">Jetzt Planen</a>
       </nav>
     </div>
@@ -31,12 +289,10 @@
   <!-- HERO -->
   <section id="home" class="hero">
     <div class="hero-bg" aria-hidden="true"></div>
-
     <div class="hero-content">
       <span class="hero-label">Innovation 2025</span>
       <h1>Eleganz,<br>die Schatten wirft.</h1>
       <p>Wo Perfektion auf Handwerk trifft. Wir gestalten exklusive Außenbereiche für Menschen mit höchsten Ansprüchen an Architektur und Lebensqualität.</p>
-
       <div class="hero-actions">
         <a href="#kollektionen" class="btn btn-gold">Entdecken</a>
         <a href="#kontakt" class="btn btn-outline">Showroom</a>
@@ -53,35 +309,35 @@
       </div>
 
       <div class="collection-grid">
-        <button class="col-card large" type="button" data-detail="signature">
+        <button class="col-card large" type="button" onclick="openDetail('signature')">
           <div class="col-content">
             <p>Signature Series</p>
             <h3>Aurora Onyx</h3>
           </div>
         </button>
 
-        <button class="col-card large" type="button" data-detail="essence">
+        <button class="col-card large" type="button" onclick="openDetail('essence')">
           <div class="col-content">
             <p>Essence Series</p>
             <h3>Jade Glasdesign</h3>
           </div>
         </button>
 
-        <button class="col-card medium" type="button" data-detail="pure">
+        <button class="col-card medium" type="button" onclick="openDetail('pure')">
           <div class="col-content">
             <p>Pure Series</p>
             <h3>Coral Carport</h3>
           </div>
         </button>
 
-        <button class="col-card medium" type="button" data-detail="living">
+        <button class="col-card medium" type="button" onclick="openDetail('living')">
           <div class="col-content">
             <p>Living Line</p>
             <h3>Outdoor Kitchen</h3>
           </div>
         </button>
 
-        <button class="col-card medium" type="button" data-detail="systeme">
+        <button class="col-card medium" type="button" onclick="openDetail('systeme')">
           <div class="col-content">
             <p>Systeme</p>
             <h3>ZIP & LED</h3>
@@ -93,8 +349,7 @@
 
   <!-- DETAIL PANEL -->
   <div id="detailPanel" class="detail-panel" aria-hidden="true">
-    <button class="detail-close" type="button" aria-label="Detailansicht schließen">&times;</button>
-
+    <button class="detail-close" type="button" aria-label="Detailansicht schließen" onclick="closeDetail()">&times;</button>
     <div class="container">
       <div id="detailContent"></div>
     </div>
@@ -108,12 +363,11 @@
           <span class="mission-kicker">Unsere Mission</span>
           <h2 class="mission-title">Qualität ohne Kompromisse.</h2>
           <p class="mission-text">
-            Smart Überdachung führt die Tradition handwerklicher Meisterschaft fort. Unter unserer Leitung entstehen
-            zukunftsweisende Lösungen, die höchsten Ansprüchen an Design, Belastbarkeit und Nachhaltigkeit gerecht werden.
+            Smart Überdachung führt die Tradition handwerklicher Meisterschaft fort. Unter unserer Leitung entstehen zukunftsweisende Lösungen,
+            die höchsten Ansprüchen an Design, Belastbarkeit und Nachhaltigkeit gerecht werden.
           </p>
           <a href="#kontakt" class="btn btn-gold">Beratungstermin</a>
         </div>
-
         <div class="mission-image" role="img" aria-label="Handwerkliche Präzision (Platzhalter)">
           <span>[Image: Nahaufnahme handwerkliche Präzision]</span>
         </div>
@@ -131,63 +385,33 @@
 
       <div class="faq-section">
         <div class="faq-item">
-          <button class="faq-trigger" type="button">
-            Hält das System extremen Wetterbedingungen stand?
-            <span aria-hidden="true">+</span>
-          </button>
-          <div class="faq-content">
-            Ja. Unsere Aurora Serie ist für statische Belastungen bis zu 450kg/m² zertifiziert. Durch hochfestes Aluminium bieten unsere Systeme maximale Sicherheit bei Windstärken bis zu 12 (Orkan).
-          </div>
+          <button class="faq-trigger" type="button">Hält das System extremen Wetterbedingungen stand? <span aria-hidden="true">+</span></button>
+          <div class="faq-content">Ja. Unsere Aurora Serie ist für statische Belastungen bis zu 450kg/m² zertifiziert. Durch hochfestes Aluminium bieten unsere Systeme maximale Sicherheit bei Windstärken bis zu 12 (Orkan).</div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-trigger" type="button">
-            Was ist der Unterschied zwischen einem Sommer- und einem Wintergarten?
-            <span aria-hidden="true">+</span>
-          </button>
-          <div class="faq-content">
-            Ein Wintergarten ist ein thermisch getrennter Wohnraum, der voll beheizbar ist und den Wohnraum ganzjährig erweitert. Ein Sommergarten (Jade Serie) dient primär als geschützter Außenbereich mit Glaselementen, der die Terrassensaison deutlich verlängert, aber nicht auf vollen Wärmeschutz im tiefsten Winter ausgelegt ist.
-          </div>
+          <button class="faq-trigger" type="button">Was ist der Unterschied zwischen einem Sommer- und einem Wintergarten? <span aria-hidden="true">+</span></button>
+          <div class="faq-content">Ein Wintergarten ist ein thermisch getrennter Wohnraum, der voll beheizbar ist und den Wohnraum ganzjährig erweitert. Ein Sommergarten (Jade Serie) dient primär als geschützter Außenbereich mit Glaselementen, der die Terrassensaison verlängert, aber nicht auf vollen Wärmeschutz im tiefsten Winter ausgelegt ist.</div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-trigger" type="button">
-            Sind die elektrischen Komponenten langlebig?
-            <span aria-hidden="true">+</span>
-          </button>
-          <div class="faq-content">
-            Wir verbauen ausschließlich Industriestandard-Komponenten von Somfy und Elero. Die Motoren sind für tausende Zyklen ausgelegt, wartungsfrei und durch das Aluminiumgehäuse der Profile optimal vor Witterung geschützt. Zudem geben wir eine umfassende Gewährleistung auf die gesamte Antriebstechnik.
-          </div>
+          <button class="faq-trigger" type="button">Sind die elektrischen Komponenten langlebig? <span aria-hidden="true">+</span></button>
+          <div class="faq-content">Wir verbauen Industriestandard-Komponenten. Die Motoren sind für viele Zyklen ausgelegt, wartungsarm und durch das Aluminiumgehäuse optimal vor Witterung geschützt. Zudem geben wir eine Gewährleistung auf die Antriebstechnik.</div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-trigger" type="button">
-            Wie verhält es sich mit dem Versicherungsschutz?
-            <span aria-hidden="true">+</span>
-          </button>
-          <div class="faq-content">
-            Nach der Montage erhalten Sie von uns alle notwendigen Unterlagen zur Statik und CE-Zertifizierung. Damit können Sie die Überdachung problemlos in Ihre Gebäudeversicherung aufnehmen lassen. Unsere Systeme entsprechen den höchsten Versicherungsstandards für Elementarschäden.
-          </div>
+          <button class="faq-trigger" type="button">Wie verhält es sich mit dem Versicherungsschutz? <span aria-hidden="true">+</span></button>
+          <div class="faq-content">Nach der Montage erhalten Sie Unterlagen zur Statik und ggf. CE-/Konformitätsdokumente. Damit kann die Anlage meist problemlos in die Gebäudeversicherung aufgenommen werden.</div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-trigger" type="button">
-            Benötige ich für eine Überdachung eine Baugenehmigung?
-            <span aria-hidden="true">+</span>
-          </button>
-          <div class="faq-content">
-            Das hängt von Ihrem Bundesland ab. In vielen Regionen sind Überdachungen bis zu einer gewissen Fläche genehmigungsfrei. Wir unterstützen Sie bei der Prüfung und stellen alle statischen Unterlagen bereit.
-          </div>
+          <button class="faq-trigger" type="button">Benötige ich für eine Überdachung eine Baugenehmigung? <span aria-hidden="true">+</span></button>
+          <div class="faq-content">Das hängt vom Bundesland und der Größe ab. In vielen Regionen sind Überdachungen bis zu einer gewissen Fläche genehmigungsfrei. Wir unterstützen bei der Prüfung und stellen statische Unterlagen bereit.</div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-trigger" type="button">
-            Wie pflegeintensiv sind die Aluminium-Profile?
-            <span aria-hidden="true">+</span>
-          </button>
-          <div class="faq-content">
-            Durch die hochwertige Pulverbeschichtung sind unsere Systeme extrem wartungsarm. Eine Reinigung zwei Mal im Jahr mit Wasser reicht meist völlig aus.
-          </div>
+          <button class="faq-trigger" type="button">Wie pflegeintensiv sind die Aluminium-Profile? <span aria-hidden="true">+</span></button>
+          <div class="faq-content">Durch die Pulverbeschichtung sind Systeme sehr wartungsarm. In der Regel reicht eine Reinigung ein bis zwei Mal pro Jahr mit Wasser.</div>
         </div>
       </div>
     </div>
@@ -201,20 +425,14 @@
         <h2>Projekt anfragen</h2>
       </div>
 
-      <!-- DSGVO-Hinweis: Demo-Formular (kein Versand). Später erst mit Backend anbinden -->
       <form id="contactForm">
         <div class="contact-grid">
-          <input name="name" type="text" placeholder="Name" required />
-          <input name="email" type="email" placeholder="E-Mail" required />
+          <input name="name" type="text" placeholder="Name" required>
+          <input name="email" type="email" placeholder="E-Mail" required>
         </div>
-
         <textarea name="message" placeholder="Ihr Vorhaben (Maße, Modellwunsch, Besonderheiten)" rows="6"></textarea>
-
         <button class="btn btn-gold btn-full" type="submit">Anfrage Unverbindlich Absenden</button>
-
-        <p class="form-note">
-          Hinweis: Dies ist aktuell eine Demo-Funktion. Es findet keine Datenübertragung statt.
-        </p>
+        <p class="form-note">Hinweis: Demo-Funktion – es findet keine Datenübertragung statt.</p>
       </form>
     </div>
   </section>
@@ -227,17 +445,18 @@
           <a href="#home" class="footer-logo">Smart <span>Überdachung</span></a>
           <p class="footer-text">
             Meisterstücke der Outdoor-Architektur.<br>
-            Bebelsbergstraße 1<br>
-            71088 Holzgerlingen
+            (Demo-Adresse)<br>
+            Musterstraße 12<br>
+            70173 Stuttgart
           </p>
         </div>
 
         <div class="footer-col">
           <h4>Kollektionen</h4>
           <ul>
-            <li><a href="#kollektionen" data-detail-link="signature">Signature Aurora</a></li>
-            <li><a href="#kollektionen" data-detail-link="essence">Essence Jade</a></li>
-            <li><a href="#kollektionen" data-detail-link="pure">Pure Coral</a></li>
+            <li><a href="#kollektionen" onclick="openDetail('signature'); return false;">Signature Aurora</a></li>
+            <li><a href="#kollektionen" onclick="openDetail('essence'); return false;">Essence Jade</a></li>
+            <li><a href="#kollektionen" onclick="openDetail('pure'); return false;">Pure Coral</a></li>
           </ul>
         </div>
 
@@ -253,8 +472,8 @@
         <div class="footer-col">
           <h4>Rechtliches</h4>
           <ul>
-            <li><a href="#" data-legal="impressum">Impressum</a></li>
-            <li><a href="#" data-legal="datenschutz">Datenschutz</a></li>
+            <li><a href="#" onclick="openModal('impressum'); return false;">Impressum</a></li>
+            <li><a href="#" onclick="openModal('datenschutz'); return false;">Datenschutz</a></li>
           </ul>
         </div>
       </div>
@@ -269,11 +488,206 @@
   <!-- LEGAL MODAL -->
   <div id="legalModal" class="modal" aria-hidden="true">
     <div class="modal-inner" role="dialog" aria-modal="true" aria-label="Rechtliche Hinweise">
-      <button class="modal-close" type="button" aria-label="Modal schließen">&times;</button>
+      <button class="modal-close" type="button" aria-label="Modal schließen" onclick="closeModal()">&times;</button>
       <div id="modalBody"></div>
     </div>
   </div>
 
-  <script src="script.js" defer></script>
+  <script>
+    // ===== DEV BANNER =====
+    function closeDevBanner(){
+      const b = document.getElementById('devBanner');
+      if(!b) return;
+      b.style.display='none';
+      document.body.style.paddingTop='0px';
+      const header = document.getElementById('header');
+      if(header) header.style.top='0px';
+    }
+
+    // Header Scroll Logic
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (!header) return;
+      if (window.scrollY > 80) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        if(!item) return;
+        item.classList.toggle('active');
+        const icon = btn.querySelector('span');
+        if(icon) icon.innerHTML = item.classList.contains('active') ? '&times;' : '+';
+      });
+    });
+
+    // Detail Panel Data
+    const details = {
+      signature: {
+        title: "Signature Line - Aurora Onyx",
+        text: "Das Flaggschiff der Kollektion. Die Aurora-Serie ist eine Symbiose aus markanter Architektur und technologischer Exzellenz. Die Lamellensysteme bieten stufenlose Kontrolle über Licht und Schatten. Konzipiert für Generationen, gefertigt aus korrosionsbeständigem Aluminium.",
+        features: ["Smarte Sensorsteuerung", "Verdeckte Entwässerung", "Zertifizierte Schneelast", "Flächenbündiges Design"],
+        img1: "[Image: Detailaufnahme Aurora Lamellen]",
+        img2: "[Image: Gesamtansicht Terrasse mit Aurora]"
+      },
+      essence: {
+        title: "Essence Line - Jade Glasdesign",
+        text: "Filigrane Linienführung trifft auf Transparenz. Die Jade-Serie schafft fließende Übergänge zwischen Wohnraum und Natur – mit Sicherheitsglas und schlanken Profilen für ein klares architektonisches Bild.",
+        features: ["Integrierte LED-Ambiente", "VSG-Sicherheitsverglasung", "Modulares Schiebesystem", "UV-Schutz Beschichtung"],
+        img1: "[Image: Jade Profil Detail]",
+        img2: "[Image: Sommergarten Jade bei Dämmerung]"
+      },
+      pure: {
+        title: "Pure Line - Coral Carport",
+        text: "Reduziert, kubisch, stark. Die Coral-Serie setzt auf eine klare Formensprache und schützt Fahrzeuge zuverlässig – robust, freistehend und wartungsarm.",
+        features: ["Freistehende Statik", "RAL-Wunschbeschichtung", "Schnee- & Hagelresistent", "Einfache Integration"],
+        img1: "[Image: Coral Carport Design]",
+        img2: "[Image: Coral Stütze Detail]"
+      },
+      living: {
+        title: "Living Line - Outdoor Kitchen",
+        text: "Kochen ohne Grenzen. Outdoor-Küchenlösungen integrieren sich nahtlos unter Ihre Überdachung – wetterfeste Materialien, modulare Planung und klare Linien.",
+        features: ["Wetterfeste Module", "Individuelle Planung", "Gas- & Elektroanschluss", "Hitzebeständige Arbeitsplatten"],
+        img1: "[Image: Outdoor Küche unter Überdachung]",
+        img2: "[Image: Grillstation & Spüle Detail]"
+      },
+      systeme: {
+        title: "Integrierte Systeme - ZIP & LED",
+        text: "Mehr Komfort, mehr Atmosphäre: ZIP-Beschattung für Sicht-/Sonnenschutz, kombiniert mit dimmbaren LED-Systemen für perfektes Licht zu jeder Tageszeit.",
+        features: ["Windfest (zertifiziert)", "Insekten-Schutzfunktion", "Dimmbare LED-Warmweiß", "Fernbedienbar per App"],
+        img1: "[Image: ZIP Screen Detail]",
+        img2: "[Image: LED Beleuchtung Ambiente]"
+      }
+    };
+
+    function openDetail(key) {
+      const data = details[key] || { title: "Detail", text: "Informationen folgen.", features: [], img1: "", img2: "" };
+
+      const content = `
+        <div class="detail-header">
+          <span style="color:var(--gold); letter-spacing:5px; text-transform:uppercase; font-size:12px;">Detailansicht</span>
+          <h2 style="font-size: clamp(30px, 5vw, 60px); text-transform:uppercase; font-weight:900;">${data.title}</h2>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-img-box">${data.img1}</div>
+          <div class="detail-img-box">${data.img2}</div>
+        </div>
+
+        <div class="detail-text">
+          <h4>Produktbeschreibung</h4>
+          <p>${data.text}</p>
+
+          <h4>Exklusive Merkmale</h4>
+          <ul class="feature-list">
+            ${(data.features || []).map(f => `<li>${f}</li>`).join('')}
+          </ul>
+
+          <br><br>
+          <a href="#kontakt" class="btn btn-gold" onclick="closeDetail()">Dieses Modell anfragen</a>
+        </div>
+      `;
+
+      document.getElementById('detailContent').innerHTML = content;
+      document.getElementById('detailPanel').classList.add('active');
+      document.getElementById('detailPanel').setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetail() {
+      document.getElementById('detailPanel').classList.remove('active');
+      document.getElementById('detailPanel').setAttribute('aria-hidden','true');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Modal Logic
+    const legalData = {
+      impressum: `
+        <h2>Impressum (Demo)</h2>
+        <p><strong>Angaben gemäß § 5 TMG</strong></p>
+        <p>
+          Smart Überdachung<br>
+          Inhaber: Saiman Talwar<br>
+          Musterstraße 12<br>
+          70173 Stuttgart<br>
+          Deutschland
+        </p>
+        <p><strong>Kontakt</strong></p>
+        <p>
+          E-Mail: <a href="mailto:info@smart-ueberdachung.de">info@smart-ueberdachung.de</a><br>
+          Telefon: +49 711 1234567 (Demo)
+        </p>
+        <p><strong>Hinweis</strong></p>
+        <p>Diese Website ist eine Vorführversion. Alle Adress- und Kontaktdaten sind Platzhalter und werden vor Live-Schaltung ersetzt.</p>
+      `,
+      datenschutz: `
+        <h2>Datenschutzerklärung (Demo)</h2>
+        <p><strong>1. Verantwortlicher</strong></p>
+        <p>
+          Smart Überdachung<br>
+          Inhaber: Saiman Talwar<br>
+          Musterstraße 12, 70173 Stuttgart, Deutschland<br>
+          E-Mail: <a href="mailto:info@smart-ueberdachung.de">info@smart-ueberdachung.de</a>
+        </p>
+
+        <p><strong>2. Allgemeine Hinweise</strong></p>
+        <p>Wir nutzen kein Tracking, keine Analyse-Tools und keine externen Fonts/CDNs. Es werden nur technisch notwendige Daten verarbeitet, um die Website bereitzustellen.</p>
+
+        <p><strong>3. Hosting</strong></p>
+        <p>
+          Beim Aufruf der Website können technisch bedingte Server-Logdaten verarbeitet werden (z. B. IP-Adresse, Datum/Uhrzeit, Referrer, User-Agent),
+          um Betrieb und Sicherheit zu gewährleisten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
+        </p>
+        <p>
+          Diese Demo kann zeitweise über GitHub Pages bereitgestellt werden. Für den späteren Live-Betrieb erfolgt das Hosting über ALL-INKL.
+        </p>
+
+        <p><strong>4. Kontaktaufnahme / Formular</strong></p>
+        <p>
+          Das Formular ist aktuell eine Demo-Funktion. Es findet keine Datenübertragung statt. Bei echter Anbindung (z. B. E-Mail/Backend/CRM) wird diese Erklärung entsprechend konkretisiert.
+        </p>
+
+        <p><strong>5. Rechte</strong></p>
+        <p>Du hast u. a. Rechte auf Auskunft, Berichtigung, Löschung und Widerspruch. Außerdem kannst du dich bei einer Datenschutzaufsichtsbehörde beschweren.</p>
+
+        <p><strong>Hinweis</strong></p>
+        <p>Dies ist ein Demo-Text. Für den Live-Betrieb müssen die Angaben (Adresse, Prozesse, Speicherdauer etc.) korrekt finalisiert werden.</p>
+      `
+    };
+
+    function openModal(type) {
+      document.getElementById('modalBody').innerHTML = legalData[type] || '<p>Inhalt folgt.</p>';
+      document.getElementById('legalModal').style.display = 'flex';
+      document.getElementById('legalModal').setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('legalModal').style.display = 'none';
+      document.getElementById('legalModal').setAttribute('aria-hidden','true');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Klick aufs Overlay schließt Modal
+    document.getElementById('legalModal').addEventListener('click', (e) => {
+      if (e.target.id === 'legalModal') closeModal();
+    });
+
+    // ESC schließt Panel/Modal
+    window.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      closeDetail();
+      closeModal();
+    });
+
+    // Contact Form (Demo)
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Anfrage erfolgreich (Demo) – es wurde nichts übertragen.');
+      e.target.reset();
+    });
+  </script>
 </body>
 </html>
